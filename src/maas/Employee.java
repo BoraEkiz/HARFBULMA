@@ -10,6 +10,7 @@ public class Employee {
     private double vergitam;
     private double raisesalary;
 
+
     public Employee(int name, double salary, int workhours, int hireYear, int vergi, double vergitam, double raisesalary) {
         this.name = name;
         this.salary = salary;
