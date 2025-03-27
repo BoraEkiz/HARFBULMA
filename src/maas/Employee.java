@@ -1,33 +1,25 @@
 package maas;
 
 public class Employee {
-
-    private int name;
-    private double salary;
-    private int workhours;
-    private int hireYear;
-    private double vergi;
-    private double vergitam;
-    private double raisesalary;
+    String name; //adı ve soyad
+    private double salary; // calısan maas
+    private int workHours; // haftalık çalısma saati
+    private int hireYear; // ise baslangıc tarihi
 
 
-    public Employee(int name, double salary, int workhours, int hireYear, int vergi, double vergitam, double raisesalary) {
+    public Employee(String name, double salary, int workHours, int hireYear) {
         this.name = name;
         this.salary = salary;
-        this.workhours = workhours;
+        this.workHours = workHours;
         this.hireYear = hireYear;
-        this.vergi = vergi;
-        this.vergitam = vergitam;
-        this.raisesalary = raisesalary;
     }
 
-    public void tax() {
-
-        if (salary > 1000) {
-            this.vergi = salary * 0.3;
-        } else
-            System.out.println("vergi indirimi uygulanmayacaktır.");
-
+    public double tax() {
+        if (this.salary < 1000) {
+            return 0;
+        } else {
+            return this.salary * 0.03;
+        }
     }
 
 
@@ -39,11 +31,9 @@ public class Employee {
         }
     }
 
-
-    public double raisesalary() {
-
-        int currenttime = 2021;
-        int worktime = currenttime - hireYear;
+    public double raiseSalary() {
+        int currentYear = 2021;
+        int workYear = currentYear - this.hireYear;
 
         if (workYear < 10) {
             return this.salary * 0.05;
@@ -52,7 +42,25 @@ public class Employee {
         } else {
             return this.salary * 0.15;
         }
-
     }
-}
 
+    public String toString() {
+        double tax = tax();  // Vergi hesaplanıyor
+        double bonus = bonus();  // Bonus hesaplanıyor
+        double raise = raiseSalary();  // Maaş artışı hesaplanıyor
+        double totalSalary = this.salary - tax + bonus + raise;  // Toplam maaş hesaplanıyor
+
+        // Bilgiler birleştirilip döndürülüyor
+        return "Adı: " + this.name +
+                "\nMaaşı: " + this.salary +
+                "\nÇalışma Saati: " + this.workHours +
+                "\nBaşlangıç Yılı: " + this.hireYear +
+                "\nVergi: " + tax +
+                "\nBonus: " + bonus +
+                "\nMaaş Artışı: " + raise +
+                "\nVergi ve Bonuslar ile birlikte maaş: " + (this.salary - tax + bonus) +
+                "\nToplam Maaş: " + totalSalary;
+    }
+
+
+}
